@@ -21,7 +21,9 @@ class ReviewFactory extends Factory
             'review' => $this->faker->paragraph(),
             'rating' => $this->faker->numberBetween(1, 5),
             'created_at' => $this->faker->dateTimeBetween('-2 years',),
-            'updated_at' => $this->faker->dateTimeBetween('created_at', 'now'),
+            'updated_at' => function (array $attributes) {
+                return fake()->dateTimeBetween($attributes['created_at'], 'now');
+            },
         ];
     }
 

@@ -16,7 +16,6 @@
         <option value="{{ $i }}">{{ $i }}</option>
       @endfor
     </select>
-
     <button type="submit" class="btn">Add Review</button>
   </form>
 @endsection

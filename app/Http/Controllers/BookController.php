@@ -17,7 +17,7 @@ class BookController extends Controller
 
         $books = Book::when(
             $title,
-            fn($query, $title) => $query->title($title)
+            fn ($query, $title) => $query->title($title)
         );
 
         $books = match ($filter) {
@@ -34,7 +34,7 @@ class BookController extends Controller
             // $cacheKey,
             // 3600,
             // fn() =>
-            $books->get();
+            $books->paginate(10);
         // );
 
         return view('books.index', ['books' => $books]);
@@ -66,9 +66,9 @@ class BookController extends Controller
         $book = cache()->remember(
             $cacheKey,
             3600,
-            fn() =>
+            fn () =>
             Book::with([
-                'reviews' => fn($query) => $query->latest()
+                'reviews' => fn ($query) => $query->latest()
             ])->withAvgRating()->withReviewsCount()->findOrFail($id)
         );
 
